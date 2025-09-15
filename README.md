@@ -1,60 +1,145 @@
-# ETL Sales Pipeline — Full Documentation
+# ETL-Sales-Pipeline — Setup & Full Documentation
 
-This document explains all tools, packages, programming languages, database queries, and step-by-step operation of the ETL-Sales-Pipeline project.
+**ETL Sales Pipeline** is a mini data engineering project that extracts raw sales data from CSV, transforms it with cleaning and total calculations, and loads it into a SQLite database. It provides a **REST API** for real-time CRUD operations and a **CLI tool** for easy navigation, updates, exports, and reporting.
 
----
-
-## 1. Tools & Technologies Used
-
-### Languages
-
-* **Python** — main language for ETL and API development.
-* **SQL** — used for database queries.
-
-### Frameworks & Libraries
-
-* **Flask** — lightweight web framework for building the API.
-* **Pandas** — data manipulation and transformation.
-* **Requests** — used in client scripts to interact with the API.
-* **SQLite/MySQL** — database for storing and managing sales data.
-
-### Package Management
-
-* **pip** — installs dependencies from `requirements.txt`.
-
-### Supporting Tools
-
-* **Postman / curl / PowerShell Invoke-WebRequest** — testing API endpoints.
+This project demonstrates core **Data Engineering** concepts:
+✅ Extract → Transform → Load
+✅ Database integration
+✅ REST API development
+✅ CLI-based interaction & automation
 
 ---
 
-## 2. Database Schema
+## ⚙️ Features
 
-The database contains a **sales** table:
+### 🔄 ETL Pipeline (Python + Pandas + SQLite)
 
-```sql
-CREATE TABLE sales (
-    sale_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    date TEXT NOT NULL,
-    customer_id INTEGER NOT NULL,
-    product TEXT NOT NULL,
-    quantity INTEGER NOT NULL,
-    unit_price REAL NOT NULL
-);
+* Load and clean **CSV sales data**
+* Calculate `total_price` = `quantity × unit_price`
+* Store data in a relational database
+
+### 🌐 Flask REST API
+
+* **GET** `/sales` → Fetch all sales
+* **GET** `/sales/<customer_id>` → Fetch sales by customer
+* **POST** `/sales` → Add a new sale
+* **PUT** `/sales/<customer_id>` → Update existing sale
+* **DELETE** `/sales/<customer_id>` → Delete sale
+* **GET** `/sales/export/<csv|excel>` → Export sales data
+
+### 🖥️ CLI Tool (`etl_tool.py`)
+
+* Interactive API client with features:
+
+  1. GET all sales
+  2. GET sale by `customer_id`
+  3. POST (add new sale)
+  4. PUT (update sale by `customer_id`)
+  5. DELETE sale by `customer_id`
+  6. Export sales (CSV or Excel)
+
+### ⚡ Package Manager (`packager.py`)
+
+* Install Python dependencies
+* Manage package collections
+* Check outdated packages & update
+
+---
+
+## 🛠️ Tech Stack
+
+**Languages**
+
+* Python 3
+* PowerShell
+* Batch (CMD)
+
+**Python Packages**
+
+* `pandas` → Data cleaning & transformation
+* `flask` → REST API
+* `sqlite3` → Database
+* `requests` → API requests (CLI tool)
+* `tabulate` → Pretty table output in CLI
+* `colorama` → Colored terminal output
+
+**External Tools**
+
+* `Invoke-WebRequest` (PowerShell) → API client
+* `curl` (CMD) → API client
+
+---
+
+## 📂 Project Structure
+
+```
+ETL-Sales-Pipeline/
+│── etl_pipeline.py        # Main ETL pipeline (Extract → Transform → Load + Server trigger)
+│── server-sideAPI.py      # Flask REST API
+│── etl_tool.py            # CLI manager for sales database
+│── packager.py            # Package manager utility
+│── sales.csv              # Source data (raw sales)
+│── sales.db               # SQLite database (auto-generated)
+│── packages.txt           # Required dependencies
 ```
 
 ---
 
-## 3. SQL Queries Used & Their Roles
+## 🚀 Setup & Run
+
+### 1️⃣ Install Dependencies
+
+1. Open **`packager.py`**.
+2. Run the script:
+
+   ```bash
+   python packager.py
+   ```
+3. In the menu, select **option 2** → Install packages from file.
+4. Ensure you have a `packages.txt` file listing all required dependencies.
+
+---
+
+### 2️⃣ Run the ETL Pipeline
+
+Run via PowerShell, CMD, or IDE:
+
+```bash
+python etl_pipeline.py
+```
+
+The pipeline will:
+
+* Extract and clean data from `sales.csv`
+* Compute `total_price`
+* Load the data into `sales.db` (SQLite database)
+* Start the **Flask API server** automatically
+
+---
+
+### 3️⃣ Access the Server
+
+* Open in browser:
+  👉 [http://127.0.0.1:5000/sales](http://127.0.0.1:5000/sales)
+
+* Or run the CLI tool:
+
+  ```bash
+  python etl_tool.py
+  ```
+
+---
+
+## 🗄️ SQL Queries & Their Roles
 
 ### 1. Insert a new sale
 
 ```sql
-INSERT INTO sales (date, customer_id, product, quantity, unit_price)
-VALUES (?, ?, ?, ?, ?);
+INSERT INTO sales (date, customer_id, product, quantity, unit_price, total_price)
+VALUES (?, ?, ?, ?, ?, ?);
 ```
 
-**Role:** Adds new sales records into the database during the `POST` operation.
+**Role:** Adds new sales records (`POST`).
 
 ### 2. Retrieve all sales
 
@@ -62,7 +147,7 @@ VALUES (?, ?, ?, ?, ?);
 SELECT * FROM sales;
 ```
 
-**Role:** Extracts all data from the database for reporting and transformations (`GET all sales`).
+**Role:** Extracts all sales data (`GET all sales`).
 
 ### 3. Retrieve sales by customer ID
 
@@ -70,17 +155,17 @@ SELECT * FROM sales;
 SELECT * FROM sales WHERE customer_id = ?;
 ```
 
-**Role:** Filters sales specific to a customer (`GET by customer_id`).
+**Role:** Fetches sales specific to a customer (`GET by customer_id`).
 
 ### 4. Update a sale
 
 ```sql
 UPDATE sales
-SET date = ?, product = ?, quantity = ?, unit_price = ?
+SET quantity = ?, unit_price = ?, total_price = quantity * unit_price
 WHERE customer_id = ?;
 ```
 
-**Role:** Updates existing sales records when a customer’s transaction needs correction (`PUT`).
+**Role:** Updates sales records (`PUT`).
 
 ### 5. Delete a sale
 
@@ -88,132 +173,47 @@ WHERE customer_id = ?;
 DELETE FROM sales WHERE customer_id = ?;
 ```
 
-**Role:** Removes data from the system if invalid or requested (`DELETE`).
+**Role:** Deletes records (`DELETE`).
 
-### 6. Aggregation query (example)
+### 6. Aggregation query (reporting)
 
 ```sql
-SELECT product, SUM(quantity) AS total_sold, SUM(quantity * unit_price) AS revenue
+SELECT product, SUM(quantity) AS total_sold, SUM(total_price) AS revenue
 FROM sales
 GROUP BY product;
 ```
 
-**Role:** Generates reports on total items sold and revenue per product (used in reporting/analytics phase).
+**Role:** Generates sales summaries per product (analytics/reporting).
 
 ---
 
-## 4. Operating the ETL Tool
+## 🔄 ETL Workflow
 
-### Step 1: Setup
+1. **Extract** → CSV data is read into Pandas.
+2. **Transform** → Data cleaned (drop missing IDs, convert dates, calculate `total_price`).
+3. **Load** → Transformed data is written into SQLite (`sales.db`).
+4. **API Layer** → Flask server exposes CRUD + export endpoints.
+5. **Manage Data** → Use `etl_tool.py` or direct API calls (PowerShell / curl / Postman).
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/JoTM-stack/ETL-Sales-Pipeline.git
-   cd ETL-Sales-Pipeline
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Initialize the database:
-
-   ```bash
-   python init_db.py
-   ```
+⚠️ **Note:** The database cannot be accessed if the Flask server is **off**.
 
 ---
 
-### Step 2: Run API Server
+## 📖 Example Workflow
 
-Run the Flask API server:
-
-```bash
-python server-sideApi.py
-```
-
-This will start the service at `http://127.0.0.1:5000/`.
+1. Install packages with `packager.py` (option 2 → from file).
+2. Run `etl_pipeline.py` → process data + start API server.
+3. Manage sales via `etl_tool.py` or [http://127.0.0.1:5000/sales](http://127.0.0.1:5000/sales).
+4. Perform CRUD + export.
+5. Stop the pipeline with `CTRL + C`.
 
 ---
 
-### Step 3: Interact with the API
+## ✅ Conclusion
 
-Use either **PowerShell**, **curl**, or **Postman**.
+* **Python + Pandas** handle ETL.
+* **SQLite** stores structured sales data.
+* **Flask API** enables CRUD & exports.
+* **CLI Tool** simplifies database management.
 
-#### Add a new sale
-
-```powershell
-Invoke-WebRequest -Uri "http://127.0.0.1:5000/sales" `
-  -Method POST `
-  -Body '{"date": "2025-09-14", "customer_id": 114, "product": "Furniture", "quantity": 50, "unit_price": 300000}' `
-  -ContentType "application/json"
-```
-
-#### Fetch all sales
-
-```powershell
-Invoke-WebRequest -Uri "http://127.0.0.1:5000/sales" -Method GET
-```
-
-#### Fetch by customer ID
-
-```powershell
-Invoke-WebRequest -Uri "http://127.0.0.1:5000/sales/114" -Method GET
-```
-
-#### Update sale
-
-```powershell
-Invoke-WebRequest -Uri "http://127.0.0.1:5000/sales/114" `
-  -Method PUT `
-  -Body '{"date": "2025-09-15", "product": "Electronics", "quantity": 30, "unit_price": 15000}' `
-  -ContentType "application/json"
-```
-
-#### Delete sale
-
-```powershell
-Invoke-WebRequest -Uri "http://127.0.0.1:5000/sales/114" -Method DELETE
-```
-
----
-
-## 5. ETL Workflow Explanation
-
-1. **Extract** — Data is extracted from the API (raw JSON or direct SQL queries).
-2. **Transform** — With Pandas, data is cleaned (e.g., convert dates, calculate revenue per sale `quantity * unit_price`).
-3. **Load** — Cleaned/processed data is written back into the database or exported into CSV/Excel for analysis.
-
----
-
-## 6. Example Data Transformation with Pandas
-
-```python
-import pandas as pd
-import sqlite3
-
-conn = sqlite3.connect("sales.db")
-df = pd.read_sql_query("SELECT * FROM sales", conn)
-
-# Add revenue column
-df["revenue"] = df["quantity"] * df["unit_price"]
-
-# Save cleaned dataset
-df.to_csv("cleaned_sales.csv", index=False)
-```
-
-**Role:** This ensures raw sales data is enriched with business metrics.
-
----
-
-## 7. Conclusion
-
-* **SQL queries** power CRUD + reporting.
-* **Python (Flask & Pandas)** automates ETL operations.
-* **API layer** makes the pipeline interactive.
-* **Transformations** prepare sales data for decision-making.
-
-This makes the ETL-Sales-Pipeline a complete, reusable system for handling business sales data.
+This makes the ETL-Sales-Pipeline a **complete educational project** showcasing modern data engineering practices.
