@@ -77,10 +77,12 @@ ETL-Sales-Pipeline/
 │── etl_pipeline.py        # Main ETL pipeline (Extract → Transform → Load + Server trigger)
 │── server-sideAPI.py      # Flask REST API
 │── etl_tool.py            # CLI manager for sales database
+│── etl_tool.ps1           # Powershell manager for sales database
 │── packager.py            # Package manager utility
 │── sales.csv              # Source data (raw sales)
 │── sales.db               # SQLite database (auto-generated)
 │── packages.txt           # Required dependencies
+│── tStyle.py              # Consistant Formatting
 ```
 
 ---
