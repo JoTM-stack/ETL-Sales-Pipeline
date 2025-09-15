@@ -1,0 +1,28 @@
+{
+  "WEB": [
+    "flask",
+    "django",
+    "fastapi",
+    "requests"
+  ],
+  "DATA SCIENCE": [
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "scipy"
+  ],
+  "MACHINE LEARNING": [
+    "scikit-learn",
+    "tensorflow",
+    "torch",
+    "xgboost"
+  ],
+  "UTILITIES": [
+    "pytest",
+    "black",
+    "pylint"
+  ],
+  "OTHER PACKAGES": [
+  ]
+}

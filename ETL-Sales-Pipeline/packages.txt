@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+requests
+reportlab
+pytest
+torch
+pipdeptree
+colorama
+plotly
+black
+pylint
+jsonify
