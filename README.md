@@ -45,6 +45,8 @@ This project demonstrates core **Data Engineering** concepts:
 
 ### ⚡ Package Manager (`packager.py`)
 
+![Alt text](pa.png)
+
 * Install Python dependencies
 * Manage package collections
 * Check outdated packages & update
