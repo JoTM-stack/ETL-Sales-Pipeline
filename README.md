@@ -21,6 +21,8 @@ This project demonstrates core **Data Engineering** concepts:
 * Calculate `total_price` = `quantity × unit_price`
 * Store data in a relational database
 
+  ![Alt text](get_sales.png)
+
 ### 🌐 Flask REST API
 
 * **GET** `/sales` → Fetch all sales
@@ -74,9 +76,6 @@ This project demonstrates core **Data Engineering** concepts:
 
 * `Invoke-WebRequest` (PowerShell) → API client
 * `curl` (CMD) → API client
-![Alt text](get_sales.png)
-
-![Alt text](Export_CurrSales.png)
 ---
 
 ## 📂 Project Structure
@@ -250,6 +249,7 @@ GROUP BY product;
 5. Server Logs.
    
 ![Alt text](Server_loggs.png)
+
 ---
 
 ## ✅ Conclusion
