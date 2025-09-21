@@ -23,24 +23,6 @@ This project demonstrates core **Data Engineering** concepts:
 
 ### 🌐 Flask REST API
 
-![Alt text](Etl_tool1.png)
-
-![Alt text](Add_sale.png)
-
-![Alt text](Etl_func.png)
-
-![Alt text](sales_export_20250921_094724.csv.png)
-
-![Alt text](Get_Sales_Web.png)
-
-![Alt text](Get_Sales2.png)
-
-![Alt text](Server_loggs.png)
-
-![Alt text](get_sales.png)
-
-![Alt text](Export_CurrSales.png)
-
 * **GET** `/sales` → Fetch all sales
 * **GET** `/sales/<customer_id>` → Fetch sales by customer
 * **POST** `/sales` → Add a new sale
@@ -49,6 +31,8 @@ This project demonstrates core **Data Engineering** concepts:
 * **GET** `/sales/export/<csv|excel>` → Export sales data
 
 ### 🖥️ CLI Tool (`etl_tool.py`)
+
+![Alt text](Etl_tool1.png)
 
 * Interactive API client with features:
 
@@ -88,7 +72,9 @@ This project demonstrates core **Data Engineering** concepts:
 
 * `Invoke-WebRequest` (PowerShell) → API client
 * `curl` (CMD) → API client
+![Alt text](get_sales.png)
 
+![Alt text](Export_CurrSales.png)
 ---
 
 ## 📂 Project Structure
@@ -121,6 +107,8 @@ ETL-Sales-Pipeline/
 3. In the menu, select **option 2** → Install packages from file.
 4. Ensure you have a `packages.txt` file listing all required dependencies.
 
+   ![Alt text](packager.png)
+
 ---
 
 ### 2️⃣ Run the ETL Pipeline
@@ -131,7 +119,9 @@ Run via PowerShell, CMD, or IDE:
 python etl_pipeline.py
 ```
 
-The pipeline will:
+![Alt text](Etl_func.png)
+
+The pipeline:
 
 * Extract and clean data from `sales.csv`
 * Compute `total_price`
@@ -145,17 +135,23 @@ The pipeline will:
 * Open in browser:
   👉 [http://127.0.0.1:5000/sales](http://127.0.0.1:5000/sales)
 
+  ![Alt text](Get_Sales_Web.png)
+
 * Or run the CLI tool:
 
   ```bash
   python etl_tool.py
-  ```
 
+![Alt text](Etl_tool1.png)
+  
+  ```
 ---
 
 ## 🗄️ SQL Queries & Their Roles
 
 ### 1. Insert a new sale
+
+![Alt text](Add_sale.png)
 
 ```sql
 INSERT INTO sales (date, customer_id, product, quantity, unit_price, total_price)
@@ -165,6 +161,8 @@ VALUES (?, ?, ?, ?, ?, ?);
 **Role:** Adds new sales records (`POST`).
 
 ### 2. Retrieve all sales
+
+![Alt text](Get_Sales2.png)
 
 ```sql
 SELECT * FROM sales;
@@ -225,11 +223,31 @@ GROUP BY product;
 ## 📖 Example Workflow
 
 1. Install packages with `packager.py` (option 2 → from file).
-2. Run `etl_pipeline.py` → process data + start API server.
-3. Manage sales via `etl_tool.py` or [http://127.0.0.1:5000/sales](http://127.0.0.1:5000/sales).
-4. Perform CRUD + export.
-5. Stop the pipeline with `CTRL + C`.
 
+![Alt text](packager.png)
+   
+2. Run `etl_pipeline.py` → process data + start API server.
+
+![Alt text](etl_func.png)
+   
+3. Manage sales via `etl_tool.py`
+   
+![Alt text](Etl_tool1.png)
+
+   or
+ [http://127.0.0.1:5000/sales](http://127.0.0.1:5000/sales).
+
+ ![Alt text](Get_Sales_Web.png)
+
+4. Perform CRUD + export.
+
+![Alt text](Export_CurrSales.png)
+
+![Alt text](sales_export_20250921_094724.csv.png)
+
+5. Server Logs.
+   
+![Alt text](Server_loggs.png)
 ---
 
 ## ✅ Conclusion
