@@ -229,7 +229,7 @@ GROUP BY product;
    
 2. Run `etl_pipeline.py` → process data + start API server.
 
-![Alt text](etl_func.png)
+![Alt text](Etl_func.png)
    
 3. Manage sales via `etl_tool.py`
    
