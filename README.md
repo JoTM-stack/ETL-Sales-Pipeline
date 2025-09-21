@@ -15,6 +15,9 @@ This project demonstrates core **Data Engineering** concepts:
 ### 🔄 ETL Pipeline (Python + Pandas + SQLite)
 
 * Load and clean **CSV sales data**
+
+ ![Alt text](sales.png)
+ 
 * Calculate `total_price` = `quantity × unit_price`
 * Store data in a relational database
 
