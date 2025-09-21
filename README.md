@@ -23,6 +23,24 @@ This project demonstrates core **Data Engineering** concepts:
 
 ### 🌐 Flask REST API
 
+![Alt text](Etl_tool1.png)
+
+![Alt text](Add_sale.png)
+
+![Alt text](Etl_func.png)
+
+![Alt text](sales_export_20250921_094724.csv.png)
+
+![Alt text](Get_Sales_Web.png)
+
+![Alt text](Get_Sales2.png)
+
+![Alt text](Server_loggs.png)
+
+![Alt text](get_sales.png)
+
+![Alt text](Export_CurrSales.png)
+
 * **GET** `/sales` → Fetch all sales
 * **GET** `/sales/<customer_id>` → Fetch sales by customer
 * **POST** `/sales` → Add a new sale
