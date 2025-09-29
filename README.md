@@ -151,8 +151,10 @@ The pipeline:
 ## 🗄️ SQL Queries & Their Roles
 
 ### 1. Insert a new sale
+```
 
 ![Alt text](Add_sale.png)
+
 
 ```sql
 INSERT INTO sales (date, customer_id, product, quantity, unit_price, total_price)
