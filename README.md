@@ -3,16 +3,16 @@
 **ETL Sales Pipeline** is a mini data engineering project that extracts raw sales data from CSV, transforms it with cleaning and total calculations, and loads it into a SQLite database. It provides a **REST API** for real-time CRUD operations and a **CLI tool** for easy navigation, updates, exports, and reporting.
 
 This project demonstrates core **Data Engineering** concepts:
-✅ Extract → Transform → Load
-✅ Database integration
-✅ REST API development
-✅ CLI-based interaction & automation
+ Extract → Transform → Load
+ Database integration
+ REST API development
+ CLI-based interaction & automation
 
 ---
 
-## ⚙️ Features
+##  Features
 
-### 🔄 ETL Pipeline (Python + Pandas + SQLite)
+###  ETL Pipeline (Python + Pandas + SQLite)
 
 * Load and clean **CSV sales data**
 
@@ -23,7 +23,7 @@ This project demonstrates core **Data Engineering** concepts:
 
   ![Alt text](get_sales.png)
 
-### 🌐 Flask REST API
+###  Flask REST API
 
 * **GET** `/sales` → Fetch all sales
 * **GET** `/sales/<customer_id>` → Fetch sales by customer
@@ -32,7 +32,7 @@ This project demonstrates core **Data Engineering** concepts:
 * **DELETE** `/sales/<customer_id>` → Delete sale
 * **GET** `/sales/export/<csv|excel>` → Export sales data
 
-### 🖥️ CLI Tool (`etl_tool.py`)
+###  CLI Tool (`etl_tool.py`)
 
 ![Alt text](Etl_tool1.png)
 
@@ -45,7 +45,7 @@ This project demonstrates core **Data Engineering** concepts:
   5. DELETE sale by `customer_id`
   6. Export sales (CSV or Excel)
 
-### ⚡ Package Manager (`packager.py`)
+###  Package Manager (`packager.py`)
 
 ![Alt text](pa.png)
 
@@ -55,7 +55,7 @@ This project demonstrates core **Data Engineering** concepts:
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 **Languages**
 
@@ -78,7 +78,7 @@ This project demonstrates core **Data Engineering** concepts:
 * `curl` (CMD) → API client
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 ETL-Sales-Pipeline/
@@ -95,7 +95,7 @@ ETL-Sales-Pipeline/
 
 ---
 
-## 🚀 Setup & Run
+##  Setup & Run
 
 ### 1️⃣ Install Dependencies
 
@@ -134,7 +134,7 @@ The pipeline:
 ### 3️⃣ Access the Server
 
 * Open in browser:
-  👉 [http://127.0.0.1:5000/sales](http://127.0.0.1:5000/sales)
+   [http://127.0.0.1:5000/sales](http://127.0.0.1:5000/sales)
 
   ![Alt text](Get_Sales_Web.png)
 
@@ -148,7 +148,7 @@ The pipeline:
   ```
 ---
 
-## 🗄️ SQL Queries & Their Roles
+##  SQL Queries & Their Roles
 
 ### 1. Insert a new sale
 ```
@@ -211,7 +211,7 @@ GROUP BY product;
 
 ---
 
-## 🔄 ETL Workflow
+##  ETL Workflow
 
 1. **Extract** → CSV data is read into Pandas.
 2. **Transform** → Data cleaned (drop missing IDs, convert dates, calculate `total_price`).
@@ -223,7 +223,7 @@ GROUP BY product;
 
 ---
 
-## 📖 Example Workflow
+##  Example Workflow
 
 1. Install packages with `packager.py` (option 2 → from file).
 
@@ -254,7 +254,7 @@ GROUP BY product;
 
 ---
 
-## ✅ Conclusion
+##  Conclusion
 
 * **Python + Pandas** handle ETL.
 * **SQLite** stores structured sales data.
