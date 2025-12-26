@@ -145,8 +145,7 @@ The pipeline:
 
 ![Alt text](Etl_tool1.png)
   
-  ```
----
+```
 
 ##  SQL Queries & Their Roles
 ```
