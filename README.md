@@ -149,9 +149,9 @@ The pipeline:
 ---
 
 ##  SQL Queries & Their Roles
-
-### 1. Insert a new sale
 ```
+### 1. Insert a new sale
+
 
 ![Alt text](Add_sale.png)
 
